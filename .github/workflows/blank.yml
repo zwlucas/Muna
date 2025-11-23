@@ -1,0 +1,45 @@
+name: Build (Kotlin/Maven) and Upload Artifacts
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup JDK 17 and cache Maven
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          cache: 'maven'
+
+      - name: Confirm Kotlin/Maven versions
+        run: |
+          java -version
+          mvn -version
+
+      - name: Build with Maven (skip tests to speed up CI)
+        run: mvn -B -DskipTests package
+
+      - name: List build output (for debug)
+        run: ls -la target || true
+
+      - name: Upload compiled artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: muna-compiled
+          path: |
+            target/*.jar
+            target/*.war
+            target/classes
+            target/**/dependency-*
+            target/*.zip
+            target/*.tar.gz
