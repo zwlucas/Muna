@@ -62,6 +62,11 @@
                 </executions>
                 <configuration>
                     <jvmTarget>1.8</jvmTarget>
+                    <archive>
+                          <manifest>
+                            <mainClass>me.akka.Main</mainClass>
+                          </manifest>
+                    </archive>
                 </configuration>
             </plugin>
             <plugin>
