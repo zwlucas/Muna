@@ -92,7 +92,7 @@
                   <archive>
                       <manifest>
                           <addClasspath>true</addClasspath>
-                          <mainClass>me.akka.Main</mainClass>
+                          <mainClass>me.akka.MainKt</mainClass>
                       </manifest>
                   </archive>
               </configuration>
